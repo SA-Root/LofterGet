@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="LofterGet.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LofterGet"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Test">
+    <Grid>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+            Margin="8">
+                <TextBlock 
+                     FontFamily="Segoe UI Variable Display"
+                     FontSize="20"
+                    Margin="4">
+                    Referer: 
+                </TextBlock>
+                <TextBox x:Name="txtReferer" Width="800" 
+                     FontFamily="Segoe UI Variable Display"
+                     FontSize="20">
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="8">
+                <TextBlock 
+                     FontFamily="Segoe UI Variable Display"
+                     FontSize="20"
+                    Margin="4"
+                    >
+                    User-Agent: 
+                </TextBlock>
+                <TextBox x:Name="txtUserAgent" Width="800" 
+                     FontFamily="Segoe UI Variable Display"
+                     FontSize="20"
+                         TextWrapping="Wrap">
+                </TextBox>
+                <Button x:Name="myButton" 
+                    Margin="4"
+                    FontSize="20"
+                    FontFamily="Segoe UI Variable Display"
+                    Click="myButton_Click">Download
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="8">
+                <TextBlock 
+                     FontFamily="Segoe UI Variable Display"
+                     FontSize="20"
+                    Margin="4"
+                    >
+                    Source URL: 
+                </TextBlock>
+                <TextBox x:Name="txtSources" Width="800" 
+                         Height="200"
+                         FontFamily="Segoe UI Variable Display"
+                         AcceptsReturn="True"
+                         
+                 FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="8">
+                <TextBlock 
+         FontFamily="Segoe UI Variable Display"
+         FontSize="20"
+        Margin="4"
+        >
+        Output Folder: 
+                </TextBlock>
+                <TextBox x:Name="txtOutputPath" Width="600" 
+             FontFamily="Segoe UI Variable Display"
+     FontSize="20">
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="8">
+                <ProgressBar Value="50"
+                             Width="300"></ProgressBar>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Margin="8">
+                <TextBox x:Name="txtConsole" Width="800" 
+                         Height="200"
+                     FontFamily="Segoe UI Variable Display"
+                     AcceptsReturn="True"
+                     FontSize="20"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
