@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Test">
+    Title="LoferGet">
     <Grid>
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center" 
@@ -20,7 +20,7 @@
                      FontFamily="Segoe UI Variable Display"
                      FontSize="20"
                     Margin="4">
-                    Referer: 
+                    Referer:
                 </TextBlock>
                 <TextBox x:Name="txtReferer" Width="800" 
                      FontFamily="Segoe UI Variable Display"
@@ -35,7 +35,7 @@
                      FontSize="20"
                     Margin="4"
                     >
-                    User-Agent: 
+                    User-Agent:
                 </TextBlock>
                 <TextBox x:Name="txtUserAgent" Width="800" 
                      FontFamily="Segoe UI Variable Display"
@@ -57,13 +57,13 @@
                      FontSize="20"
                     Margin="4"
                     >
-                    Source URL: 
+                    Source URL:
                 </TextBlock>
                 <TextBox x:Name="txtSources" Width="800" 
                          Height="200"
                          FontFamily="Segoe UI Variable Display"
                          AcceptsReturn="True"
-                         
+                         TabIndex="0"
                  FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
@@ -74,10 +74,11 @@
          FontSize="20"
         Margin="4"
         >
-        Output Folder: 
+        Output Folder:
                 </TextBlock>
                 <TextBox x:Name="txtOutputPath" Width="600" 
              FontFamily="Segoe UI Variable Display"
+                         TextChanged="txtOutputPath_TextChanged"
      FontSize="20">
                 </TextBox>
             </StackPanel>
@@ -85,16 +86,22 @@
                         HorizontalAlignment="Center"
                         Margin="8">
                 <ProgressBar Value="50"
+                             x:Name="pBar"
                              Width="300"></ProgressBar>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Center"
                 Margin="8">
-                <TextBox x:Name="txtConsole" Width="800" 
-                         Height="200"
+                <ScrollView Width="800"
+                            Height="200"
+                            VerticalScrollMode="Auto" 
+                            VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="txtConsole"
                      FontFamily="Segoe UI Variable Display"
-                     AcceptsReturn="True"
+                               Width="Auto"
+                               Height="Auto"
                      FontSize="20"/>
+                </ScrollView>
             </StackPanel>
         </StackPanel>
     </Grid>
