@@ -16,7 +16,7 @@
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Right" 
                         VerticalAlignment="Center"
             Margin="8">
                 <TextBlock 
@@ -31,7 +31,7 @@
                 </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
+                        HorizontalAlignment="Right"
                         Margin="8">
                 <TextBlock 
                      FontFamily="Segoe UI Variable Display"
@@ -45,15 +45,10 @@
                      FontSize="20"
                          TextWrapping="Wrap">
                 </TextBox>
-                <Button x:Name="myButton" 
-                    Margin="4"
-                    FontSize="20"
-                    FontFamily="Segoe UI Variable Display"
-                    Click="myButton_Click">Download
-                </Button>
+                
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
+                        HorizontalAlignment="Right"
                         Margin="8">
                 <TextBlock 
                      FontFamily="Segoe UI Variable Display"
@@ -70,7 +65,7 @@
                  FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             Margin="8">
                 <TextBlock 
          FontFamily="Segoe UI Variable Display"
@@ -79,7 +74,7 @@
         >
         Output Folder:
                 </TextBlock>
-                <TextBox x:Name="txtOutputPath" Width="600" 
+                <TextBox x:Name="txtOutputPath" Width="800" 
              FontFamily="Segoe UI Variable Display"
                          TextChanged="txtOutputPath_TextChanged"
      FontSize="20">
@@ -90,7 +85,14 @@
                         Margin="8">
                 <ProgressBar Value="50"
                              x:Name="pBar"
-                             Width="300"></ProgressBar>
+                             Width="300"
+                             Margin="8"></ProgressBar>
+                <Button x:Name="myButton" 
+    Margin="4"
+    FontSize="20"
+    FontFamily="Segoe UI Variable Display"
+    Click="myButton_Click">Download
+                </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Center"
