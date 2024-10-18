@@ -5,7 +5,7 @@
         <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
         <RootNamespace>LofterGet</RootNamespace>
         <ApplicationManifest>app.manifest</ApplicationManifest>
-        <Platforms>x86;x64;ARM64</Platforms>
+        <Platforms>x64;ARM64</Platforms>
         <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)')) &gt;= 8">win-x86;win-x64;win-arm64</RuntimeIdentifiers>
         <UseWinUI>true</UseWinUI>
         <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
@@ -22,9 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.3" />
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.6" />
         <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
         <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
 </Project>
