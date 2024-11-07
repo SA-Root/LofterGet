@@ -18,31 +18,30 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right" 
                         VerticalAlignment="Center"
-            Margin="8">
+                        Margin="8">
                 <TextBlock 
-                     FontFamily="Segoe UI Variable Display"
-                     FontSize="20"
+                    FontFamily="Segoe UI Variable Display"
+                    FontSize="20"
                     Margin="4">
                     Referer:
                 </TextBlock>
                 <TextBox x:Name="txtReferer" Width="800" 
-                     FontFamily="Segoe UI Variable Display"
-                     FontSize="20">
+                         FontFamily="Segoe UI Variable Display"
+                         FontSize="20">
                 </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Margin="8">
                 <TextBlock 
-                     FontFamily="Segoe UI Variable Display"
-                     FontSize="20"
-                    Margin="4"
-                    >
+                    FontFamily="Segoe UI Variable Display"
+                    FontSize="20"
+                    Margin="4">
                     User-Agent:
                 </TextBlock>
                 <TextBox x:Name="txtUserAgent" Width="800" 
-                     FontFamily="Segoe UI Variable Display"
-                     FontSize="20"
+                         FontFamily="Segoe UI Variable Display"
+                         FontSize="20"
                          TextWrapping="Wrap">
                 </TextBox>
                 
@@ -51,10 +50,9 @@
                         HorizontalAlignment="Right"
                         Margin="8">
                 <TextBlock 
-                     FontFamily="Segoe UI Variable Display"
-                     FontSize="20"
-                    Margin="4"
-                    >
+                    FontFamily="Segoe UI Variable Display"
+                    FontSize="20"
+                    Margin="4">
                     Source URL:
                 </TextBlock>
                 <TextBox x:Name="txtSources" Width="800" 
@@ -62,22 +60,21 @@
                          FontFamily="Segoe UI Variable Display"
                          AcceptsReturn="True"
                          TabIndex="0"
-                 FontSize="20"/>
+                         FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-            HorizontalAlignment="Right"
-            Margin="8">
+                        HorizontalAlignment="Right"
+                        Margin="8">
                 <TextBlock 
-         FontFamily="Segoe UI Variable Display"
-         FontSize="20"
-        Margin="4"
-        >
-        Output Folder:
+                    FontFamily="Segoe UI Variable Display"
+                    FontSize="20"
+                    Margin="4">
+                    Output Folder:
                 </TextBlock>
                 <TextBox x:Name="txtOutputPath" Width="800" 
-             FontFamily="Segoe UI Variable Display"
+                         FontFamily="Segoe UI Variable Display"
                          TextChanged="txtOutputPath_TextChanged"
-     FontSize="20">
+                         FontSize="20">
                 </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
@@ -88,24 +85,25 @@
                              Width="300"
                              Margin="8"></ProgressBar>
                 <Button x:Name="myButton" 
-    Margin="4"
-    FontSize="20"
-    FontFamily="Segoe UI Variable Display"
-    Click="myButton_Click">Download
+                        Margin="4"
+                        FontSize="20"
+                        FontFamily="Segoe UI Variable Display"
+                        Click="myButton_Click">
+                    Download
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="8" BorderBrush="Aqua" BorderThickness="4">
+                        HorizontalAlignment="Center"
+                        Margin="8" BorderBrush="Aqua" BorderThickness="4">
                 <ScrollView Width="800"
                             Height="200"
                             VerticalScrollMode="Auto" 
                             VerticalScrollBarVisibility="Auto">
                     <TextBlock x:Name="txtConsole"
-                     FontFamily="Segoe UI Variable Display"
+                               FontFamily="Segoe UI Variable Display"
                                Width="Auto"
                                Height="Auto"
-                     FontSize="20"/>
+                               FontSize="20"/>
                 </ScrollView>
             </StackPanel>
         </StackPanel>
