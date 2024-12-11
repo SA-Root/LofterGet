@@ -44,7 +44,7 @@
                          FontSize="20"
                          TextWrapping="Wrap">
                 </TextBox>
-                
+
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"

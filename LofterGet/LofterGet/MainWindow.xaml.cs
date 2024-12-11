@@ -41,7 +41,8 @@ public sealed partial class MainWindow : Window
                         if (resp.StatusCode == HttpStatusCode.OK)
                         {
                             var file_name = uri[25..].Replace("/", "_");
-                            using var f = new FileStream($"{outFolder}/{file_name}", FileMode.Create, FileAccess.Write);
+                            using var f = new FileStream($"{outFolder}/{file_name}",
+                                FileMode.Create, FileAccess.Write);
                             var bin = await resp.Content.ReadAsByteArrayAsync();
                             f.Write(bin);
                             DispatcherQueue.TryEnqueue(() =>
