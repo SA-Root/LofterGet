@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Concurrent;
 using System.Net;
+using System.Xml;
 
 namespace LofterGet;
 
@@ -87,5 +88,18 @@ public sealed partial class MainWindow : Window
     private void txtOutputPath_TextChanged(object sender, TextChangedEventArgs e)
     {
         outFolder = txtOutputPath.Text;
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        var path = @"C:\Users\a1240\AppData\Local\Microsoft\OneDrive\Update\update.xml";
+        if (File.Exists(path))
+        {
+            using var xr = XmlReader.Create(path);
+            xr.ReadToFollowing("amd64binary");
+            txtOneDrive.Text = $"{xr["url"]}{Environment.NewLine}";
+            xr.ReadToFollowing("arm64binary");
+            txtOneDrive.Text += xr["url"];
+        }
     }
 }
