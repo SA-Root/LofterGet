@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup Label="Globals">
       <WebView2LoaderPreference>Static</WebView2LoaderPreference>
       <WebView2UseWinRT>False</WebView2UseWinRT>
@@ -19,15 +19,20 @@
         <PublishTrimmed>True</PublishTrimmed>
         <ApplicationIcon>Picture2.ico</ApplicationIcon>
         <PublishAot>True</PublishAot>
+        <AssemblyVersion>1.1.2501.1</AssemblyVersion>
+        <FileVersion>1.1.2501.1</FileVersion>
+        <Version>1.1.2501.1</Version>
     </PropertyGroup>
     <ItemGroup>
         <Content Include="Picture2.ico" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
         <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250205002" />
+        <PackageReference Include="System.Threading.Channels" Version="9.0.2" />
         <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
 </Project>

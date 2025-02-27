@@ -50,6 +50,7 @@ public sealed partial class MainWindow : Window
                             {
                                 pBar.Value += 100.0 / totals;
                                 txtConsole.Text += $"{resp.StatusCode}: {file_name}\r\n";
+                                svConsole.ScrollTo(0, svConsole.ExtentHeight);
                             });
                             Thread.Sleep(500);
                         }
