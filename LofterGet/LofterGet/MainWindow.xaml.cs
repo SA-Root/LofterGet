@@ -11,6 +11,8 @@ namespace LofterGet;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    private MainWindowViewModel viewModel = new();
+
     private readonly HttpClient client = new();
     private readonly Channel<string> channel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions
     {
@@ -29,7 +31,7 @@ public sealed partial class MainWindow : Window
         outFolder = txtOutputPath.Text;
         client.DefaultRequestHeaders.Add("User-Agent", txtUserAgent.Text);
         client.DefaultRequestHeaders.Add("Referer", txtReferer.Text);
-
+        GMain.DataContext = viewModel;
         Task.Run(LofterHandler);
     }
 

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LofterGet"
+    xmlns:lm="using:LofterGet.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -12,8 +13,9 @@
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
-    <Grid>
-        <TabView IsAddTabButtonVisible="False">
+    
+    <Grid x:Name="GMain">
+        <TabView IsAddTabButtonVisible="False" TabWidthMode="SizeToContent">
             <TabViewItem Header="Lofter" IsClosable="False">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -72,6 +74,7 @@
                     </Grid>
                 </Grid>
             </TabViewItem>
+            
             <TabViewItem Header="Utility"  IsClosable="False">
                 <Grid Padding="8">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
@@ -79,6 +82,36 @@
                         <TextBox x:Name="txtOneDrive" AcceptsReturn="True" Margin="0,8,0,0"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
                     </StackPanel>
+                </Grid>
+            </TabViewItem>
+
+            <TabViewItem Header="Chrome GPU Driver Bug"  IsClosable="False">
+                <Grid Padding="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"/>
+                    <ListView Grid.Row="1" Margin="8" ItemsSource="{x:Bind viewModel.GpuBugs, Mode=OneWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="lm:GpuDriverBugEntry">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind id}" Margin="4"/>
+                                        <TextBlock Text="{x:Bind description}" Margin="4"/>
+                                    </StackPanel>
+                                    <ListView Grid.Row="2" ItemsSource="{x:Bind features}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </TabViewItem>
         </TabView>
