@@ -91,12 +91,19 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"/>
+                        <ComboBox Margin="4" ItemsSource="{x:Bind viewModel.OsPlatforms, Mode=OneWay}"
+                                  SelectedItem="{x:Bind viewModel.SelectedOsPlatform, Mode=TwoWay}"
+                                  MinWidth="120" SelectionChanged="ComboBox_SelectionChanged"/>
+                    </StackPanel>
                     
-                    <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"/>
                     <ListView Grid.Row="1" Margin="8" ItemsSource="{x:Bind viewModel.GpuBugs, Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="lm:GpuDriverBugEntry">
-                                <Grid>
+                                <Grid Margin="4"
+                                      Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -104,8 +111,10 @@
                                     </Grid.RowDefinitions>
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind id}" Margin="4"/>
-                                        <TextBlock Text="{x:Bind description}" Margin="4"/>
+                                        <TextBlock Text="{x:Bind id}" Margin="4" Padding="8"
+                                                   Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                                        <TextBlock Text="{x:Bind description}" Margin="4"
+                                                   VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <ListView Grid.Row="2" ItemsSource="{x:Bind features}"/>
                                 </Grid>

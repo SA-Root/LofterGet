@@ -1,5 +1,7 @@
+using LofterGet.Model;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Threading.Channels;
 using System.Xml;
@@ -98,6 +100,19 @@ public sealed partial class MainWindow : Window
 
     private void Window_Activated(object sender, WindowActivatedEventArgs args)
     {
-        txtSources.Focus(FocusState.Programmatic);
+
+    }
+
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (viewModel.SelectedOsPlatform == "N/A")
+        {
+            viewModel.GpuBugs = viewModel.AllBugs;
+        }
+        else
+        {
+            viewModel.GpuBugs = [.. viewModel.AllBugs
+                .Where(x => x.os?.type == viewModel.SelectedOsPlatform)];
+        }
     }
 }
