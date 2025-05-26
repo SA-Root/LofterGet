@@ -27,14 +27,21 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
+
+        InitData();
+        viewModel.OneDriveUpdate();
+        viewModel.DisplayGpuDriverBug();
+        Task.Run(LofterHandler);
+    }
+
+    private void InitData()
+    {
         txtReferer.Text = "https://queyangzheng82678.lofter.com/";
         txtUserAgent.Text = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0";
         txtOutputPath.Text = "D:/tmp/M1876";
         outFolder = txtOutputPath.Text;
         client.DefaultRequestHeaders.Add("User-Agent", txtUserAgent.Text);
         client.DefaultRequestHeaders.Add("Referer", txtReferer.Text);
-        GMain.DataContext = viewModel;
-        Task.Run(LofterHandler);
     }
 
     private async Task LofterHandler()
@@ -83,24 +90,6 @@ public sealed partial class MainWindow : Window
     private void txtOutputPath_TextChanged(object sender, TextChangedEventArgs e)
     {
         outFolder = txtOutputPath.Text;
-    }
-
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        var path = @"C:\Users\a1240\AppData\Local\Microsoft\OneDrive\Update\update.xml";
-        if (File.Exists(path))
-        {
-            using var xr = XmlReader.Create(path);
-            xr.ReadToFollowing("amd64binary");
-            txtOneDrive.Text = $"{xr["url"]}{Environment.NewLine}";
-            xr.ReadToFollowing("arm64binary");
-            txtOneDrive.Text += xr["url"];
-        }
-    }
-
-    private void Window_Activated(object sender, WindowActivatedEventArgs args)
-    {
-
     }
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

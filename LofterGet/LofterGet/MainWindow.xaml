@@ -8,7 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Activated="Window_Activated"
     Title="LoferGet">
     <Window.SystemBackdrop>
         <MicaBackdrop />
@@ -78,8 +77,9 @@
             <TabViewItem Header="Utility"  IsClosable="False">
                 <Grid Padding="8">
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                        <Button Content="OneDrive" Click="Button_Click"/>
-                        <TextBox x:Name="txtOneDrive" AcceptsReturn="True" Margin="0,8,0,0"
+                        <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"/>
+                        <TextBox AcceptsReturn="True" Margin="0,8,0,0"
+                                 Text="{x:Bind viewModel.OneUpdate}"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
                     </StackPanel>
                 </Grid>
