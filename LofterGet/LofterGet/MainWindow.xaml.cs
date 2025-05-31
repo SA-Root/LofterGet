@@ -1,10 +1,7 @@
-using LofterGet.Model;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Collections.ObjectModel;
 using System.Net;
 using System.Threading.Channels;
-using System.Xml;
 
 namespace LofterGet;
 
