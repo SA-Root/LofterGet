@@ -20,9 +20,9 @@
         <ApplicationIcon>Picture2.ico</ApplicationIcon>
         <LangVersion>preview</LangVersion>
         <PublishAot>True</PublishAot>
-        <AssemblyVersion>1.1.2501.1</AssemblyVersion>
-        <FileVersion>1.1.2501.1</FileVersion>
-        <Version>1.1.2501.1</Version>
+        <AssemblyVersion>1.2.2506.0</AssemblyVersion>
+        <FileVersion>1.2.2506.0</FileVersion>
+        <Version>1.2.2506.0</Version>
     </PropertyGroup>
     <ItemGroup>
         <Content Include="Picture2.ico" />

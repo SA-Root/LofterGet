@@ -12,7 +12,7 @@
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
-    
+
     <Grid x:Name="GMain">
         <TabView IsAddTabButtonVisible="False" TabWidthMode="SizeToContent">
             <TabViewItem Header="Lofter" IsClosable="False">
@@ -73,14 +73,27 @@
                     </Grid>
                 </Grid>
             </TabViewItem>
-            
+
             <TabViewItem Header="Utility"  IsClosable="False">
                 <Grid Padding="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                         <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"/>
                         <TextBox AcceptsReturn="True" Margin="0,8,0,0"
                                  Text="{x:Bind viewModel.OneUpdate}"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8">
+                        <TextBlock Text="WWAN Data Class: " Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBox IsReadOnly="True" Text="{x:Bind viewModel.WwanDataClass, Mode=OneWay}"
+                                 Margin="4,0"/>
+                        <Button Content="Update" Command="{x:Bind viewModel.RefreshWwanDataClassCommand}"
+                                Margin="4,0"/>
                     </StackPanel>
                 </Grid>
             </TabViewItem>
@@ -98,7 +111,7 @@
                                   SelectedItem="{x:Bind viewModel.SelectedOsPlatform, Mode=TwoWay}"
                                   MinWidth="120" SelectionChanged="ComboBox_SelectionChanged"/>
                     </StackPanel>
-                    
+
                     <ListView Grid.Row="1" Margin="8" ItemsSource="{x:Bind viewModel.GpuBugs, Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="lm:GpuDriverBugEntry">

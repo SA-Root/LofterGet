@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using LofterGet.Model;
 using System.Text.Json;
 using System.Xml;
+using Windows.Networking.Connectivity;
 
 namespace LofterGet;
 
@@ -57,5 +58,24 @@ partial class MainWindowViewModel : ObservableObject
             xr.ReadToFollowing("arm64binary");
             OneUpdate += xr["url"];
         }
+    }
+
+    [ObservableProperty]
+    public partial string WwanDataClass { get; set; } = "N/A";
+
+    [RelayCommand]
+    public void RefreshWwanDataClass()
+    {
+        var cp = NetworkInformation.GetConnectionProfiles().Where(x => x.IsWwanConnectionProfile);
+        if (cp.Any())
+        {
+            var wwan = cp.First();
+            WwanDataClass = wwan.WwanConnectionProfileDetails.GetCurrentDataClass().ToString();
+        }
+    }
+
+    public MainWindowViewModel()
+    {
+        RefreshWwanDataClass();
     }
 }
