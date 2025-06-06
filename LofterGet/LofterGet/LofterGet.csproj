@@ -24,9 +24,6 @@
         <FileVersion>1.2.2506.0</FileVersion>
         <Version>1.2.2506.0</Version>
     </PropertyGroup>
-    <ItemGroup>
-        <Content Include="Picture2.ico" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -38,6 +35,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="Picture2.ico">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Resources\gpu_driver_bug_list.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

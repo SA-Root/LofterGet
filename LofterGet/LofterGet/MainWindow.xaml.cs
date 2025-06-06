@@ -34,7 +34,7 @@ public sealed partial class MainWindow : Window
     private void InitData()
     {
         txtReferer.Text = "https://queyangzheng82678.lofter.com/";
-        txtUserAgent.Text = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0";
+        txtUserAgent.Text = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0";
         txtOutputPath.Text = "D:/tmp/M1876";
         outFolder = txtOutputPath.Text;
         client.DefaultRequestHeaders.Add("User-Agent", txtUserAgent.Text);
