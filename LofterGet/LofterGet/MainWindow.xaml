@@ -23,8 +23,8 @@
             <TextBlock FontFamily="Segoe UI Variable Display" FontSize="14"
                        Margin="4" Text="LofterGet" VerticalAlignment="Center"/>
         </StackPanel>
-        
-        <TabView Grid.Row="1" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent">
+
+        <TabView Grid.Row="1" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" Margin="0,8,0,0">
             <TabViewItem Header="Lofter" IsClosable="False">
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
@@ -148,5 +148,11 @@
                 </Grid>
             </TabViewItem>
         </TabView>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+            <Button Margin="8" Content="Light" Command="{x:Bind SetLightThemeCommand}"/>
+            <Button Margin="0,8,8,8" Content="Dark" Command="{x:Bind SetDarkThemeCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>

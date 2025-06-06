@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -33,13 +34,15 @@ public sealed partial class MainWindow : Window
         Task.Run(LofterHandler);
     }
 
-    private void SetDarkTheme()
+    [RelayCommand]
+    public void SetDarkTheme()
     {
         (Content as FrameworkElement).RequestedTheme = ElementTheme.Dark;
         AppWindow.TitleBar.ButtonForegroundColor = Colors.White;
     }
 
-    private void SetLightTheme()
+    [RelayCommand]
+    public void SetLightTheme()
     {
         (Content as FrameworkElement).RequestedTheme = ElementTheme.Light;
         AppWindow.TitleBar.ButtonForegroundColor = Colors.Black;
