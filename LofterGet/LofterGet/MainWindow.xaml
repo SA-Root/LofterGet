@@ -26,7 +26,7 @@
         
         <TabView Grid.Row="1" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent">
             <TabViewItem Header="Lofter" IsClosable="False">
-                <Grid>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -35,50 +35,51 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="800"/>
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
-                        <TextBlock FontFamily="Segoe UI Variable Display" FontSize="20"
-                                   VerticalAlignment="Center"
-                                   Margin="4" Text="Referer:"/>
-                        <TextBox x:Name="txtReferer" Width="800" FontFamily="Segoe UI Variable Display"
-                                 FontSize="20"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
-                        <TextBlock FontFamily="Segoe UI Variable Display" FontSize="20" Margin="4"
-                                   Text="User-Agent:" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtUserAgent" Width="800" FontFamily="Segoe UI Variable Display"
-                                 FontSize="20" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
-                        <TextBlock FontFamily="Segoe UI Variable Display" FontSize="20" Margin="4"
-                                   Text="Source URL:" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtSources" Width="800" 
-                                 Height="200" FontFamily="Segoe UI Variable Display"
-                                 AcceptsReturn="True" TabIndex="0" FontSize="20"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
-                        <TextBlock FontFamily="Segoe UI Variable Display"
-                                   VerticalAlignment="Center" FontSize="20" Margin="4"
-                                   Text="Output Folder:"/>
-                        <TextBox x:Name="txtOutputPath" MinWidth="800" 
-                                 FontFamily="Segoe UI Variable Display"
-                                 TextChanged="txtOutputPath_TextChanged" FontSize="20">
-                        </TextBox>
-                    </StackPanel>
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center"
+                    <TextBlock FontFamily="Segoe UI Variable Display" FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="4" Text="Referer:"/>
+                    <TextBox Grid.Column="1" x:Name="txtReferer" FontFamily="Segoe UI Variable Display"
+                             FontSize="20" Margin="4"/>
+
+                    <TextBlock Grid.Row="1" FontFamily="Segoe UI Variable Display" FontSize="20" Margin="4"
+                               Text="User-Agent:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtUserAgent" Margin="4"
+                             FontFamily="Segoe UI Variable Display"
+                             FontSize="20" TextWrapping="Wrap"/>
+
+                    <TextBlock Grid.Row="2" FontFamily="Segoe UI Variable Display" FontSize="20" Margin="4"
+                               Text="Source URL:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSources" Margin="4"
+                             Height="200" FontFamily="Segoe UI Variable Display"
+                             AcceptsReturn="True" TabIndex="0" FontSize="20"/>
+
+                    <TextBlock Grid.Row="3" FontFamily="Segoe UI Variable Display"
+                               VerticalAlignment="Center" FontSize="20" Margin="4"
+                               Text="Output Folder:"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtOutputPath"
+                             FontFamily="Segoe UI Variable Display" Margin="4"
+                             TextChanged="txtOutputPath_TextChanged" FontSize="20"/>
+                    
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal"
+                                HorizontalAlignment="Center"
                                 Margin="8">
                         <ProgressBar Value="50" x:Name="pBar" Width="300" Margin="8"/>
                         <Button x:Name="myButton"  Margin="4" FontSize="20"
                                 FontFamily="Segoe UI Variable Display" Click="myButton_Click"
                                 Content="Download"/>
                     </StackPanel>
-                    <Grid Grid.Row="5" BorderBrush="{ThemeResource SystemAccentColor}"
-                          BorderThickness="4" Margin="8" HorizontalAlignment="Center">
-                        <ScrollView x:Name="svConsole" Width="800" VerticalScrollMode="Auto"
-                                    MinHeight="200"
+                    
+                    <Grid Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="{ThemeResource SystemAccentColor}"
+                          BorderThickness="4" Margin="8">
+                        <ScrollView x:Name="svConsole" VerticalScrollMode="Auto"
                                     VerticalScrollBarVisibility="Auto">
                             <TextBlock x:Name="txtConsole" FontFamily="Segoe UI Variable Display"
-                                       FontSize="20" Margin="4"/>
+                                     FontSize="20" Margin="4"/>
                         </ScrollView>
                     </Grid>
                 </Grid>

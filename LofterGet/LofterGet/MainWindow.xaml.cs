@@ -1,7 +1,9 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Net;
 using System.Threading.Channels;
+using Windows.System;
 
 namespace LofterGet;
 
@@ -29,6 +31,18 @@ public sealed partial class MainWindow : Window
         viewModel.OneDriveUpdate();
         viewModel.DisplayGpuDriverBug();
         Task.Run(LofterHandler);
+    }
+
+    private void SetDarkTheme()
+    {
+        (Content as FrameworkElement).RequestedTheme = ElementTheme.Dark;
+        AppWindow.TitleBar.ButtonForegroundColor = Colors.White;
+    }
+
+    private void SetLightTheme()
+    {
+        (Content as FrameworkElement).RequestedTheme = ElementTheme.Light;
+        AppWindow.TitleBar.ButtonForegroundColor = Colors.Black;
     }
 
     private void InitData()
