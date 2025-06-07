@@ -21,7 +21,32 @@ partial class MainWindowViewModel : ObservableObject
     public partial string OneUpdate { get; set; }
 
     [ObservableProperty]
+    public partial string EffectiveTransferRate { get; set; } = "6400";
+
+    [ObservableProperty]
+    public partial string Channels { get; set; } = "2";
+
+    [ObservableProperty]
+    public partial string ChannelWidth { get; set; } = "64";
+
+    [ObservableProperty]
+    public partial string CalculatedBandwidth { get; set; } = "64";
+
+    [ObservableProperty]
     public partial string SelectedOsPlatform { get; set; } = "N/A";
+
+    [RelayCommand]
+    public void CalcBandwidth()
+    {
+        if (double.TryParse(EffectiveTransferRate, out double transferRate) &&
+           int.TryParse(Channels, out int channels) &&
+           int.TryParse(ChannelWidth, out int channelWidth))
+        {
+            // Calculate bandwidth in Mbps
+            double bandwidth = (transferRate * channels * channelWidth) / 8.0 / 1000;
+            CalculatedBandwidth = $"{bandwidth:F2}";
+        }
+    }
 
     [RelayCommand]
     public async Task DisplayGpuDriverBug()
@@ -77,5 +102,6 @@ partial class MainWindowViewModel : ObservableObject
     public MainWindowViewModel()
     {
         RefreshWwanDataClass();
+        CalcBandwidth();
     }
 }

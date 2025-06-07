@@ -64,16 +64,17 @@
                     <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtOutputPath"
                              FontFamily="Segoe UI Variable Display" Margin="4"
                              TextChanged="txtOutputPath_TextChanged" FontSize="20"/>
-                    
+
                     <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="8">
                         <ProgressBar Value="50" x:Name="pBar" Width="300" Margin="8"/>
                         <Button x:Name="myButton"  Margin="4" FontSize="20"
                                 FontFamily="Segoe UI Variable Display" Click="myButton_Click"
+                                Style="{StaticResource AccentButtonStyle}"
                                 Content="Download"/>
                     </StackPanel>
-                    
+
                     <Grid Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="{ThemeResource SystemAccentColor}"
                           BorderThickness="4" Margin="8">
                         <ScrollView x:Name="svConsole" VerticalScrollMode="Auto"
@@ -90,9 +91,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                        <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"/>
+                        <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"
+                                Style="{StaticResource AccentButtonStyle}"/>
                         <TextBox AcceptsReturn="True" Margin="0,8,0,0"
                                  Text="{x:Bind viewModel.OneUpdate}"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
@@ -104,7 +107,30 @@
                         <TextBox IsReadOnly="True" Text="{x:Bind viewModel.WwanDataClass, Mode=OneWay}"
                                  Margin="4,0"/>
                         <Button Content="Update" Command="{x:Bind viewModel.RefreshWwanDataClassCommand}"
-                                Margin="4,0"/>
+                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8">
+                        <TextBlock Text="Memory Bandwidth: " Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Text="{x:Bind viewModel.EffectiveTransferRate, Mode=TwoWay}"
+                                 Margin="4,0"/>
+                        <TextBlock Text="MT/s" Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Text="{x:Bind viewModel.Channels, Mode=TwoWay}"
+                                 Margin="4,0"/>
+                        <TextBlock Text="Channels" Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Text="{x:Bind viewModel.ChannelWidth, Mode=TwoWay}"
+                                 Margin="4,0"/>
+                        <TextBlock Text="bit/Channel" Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <Button Content="Calculate" Command="{x:Bind viewModel.CalcBandwidthCommand}"
+                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                        <TextBox Text="{x:Bind viewModel.CalculatedBandwidth, Mode=TwoWay}"
+                                 Margin="4,0"/>
+                        <TextBlock Text="GB/s" Margin="4,0"
+                                   VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
             </TabViewItem>
@@ -117,7 +143,8 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"/>
+                        <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"
+                                Style="{StaticResource AccentButtonStyle}"/>
                         <ComboBox Margin="4" ItemsSource="{x:Bind viewModel.OsPlatforms, Mode=OneWay}"
                                   SelectedItem="{x:Bind viewModel.SelectedOsPlatform, Mode=TwoWay}"
                                   MinWidth="120" SelectionChanged="ComboBox_SelectionChanged"/>
