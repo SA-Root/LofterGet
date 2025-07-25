@@ -26,11 +26,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
-        <PackageReference Include="System.Threading.Channels" Version="9.0.6" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="*" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="*" />
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="*" />
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="*" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="*" />
+        <PackageReference Include="System.Threading.Channels" Version="*" />
         <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
 
