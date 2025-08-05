@@ -20,7 +20,6 @@
         <ApplicationIcon>Picture2.ico</ApplicationIcon>
         <LangVersion>preview</LangVersion>
         <PublishAot>True</PublishAot>
-        <AssemblyVersion>1.2.2506.2</AssemblyVersion>
         <FileVersion>1.2.2506.2</FileVersion>
         <Version>1.2.2506.2</Version>
     </PropertyGroup>
