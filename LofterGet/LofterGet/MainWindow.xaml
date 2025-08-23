@@ -21,7 +21,7 @@
         <StackPanel Orientation="Horizontal">
             <Image Source="/Picture2.ico" Margin="8,4,0,4" Width="20"/>
             <TextBlock FontFamily="Segoe UI Variable Display" FontSize="14"
-                       Margin="4" Text="LofterGet" VerticalAlignment="Center"/>
+                       Margin="4,6" Text="LofterGet" VerticalAlignment="Center"/>
         </StackPanel>
 
         <TabView Grid.Row="1" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" Margin="0,8,0,0">

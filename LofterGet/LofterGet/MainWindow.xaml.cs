@@ -30,7 +30,7 @@ public sealed partial class MainWindow : Window
 
         InitData();
         viewModel.OneDriveUpdate();
-        viewModel.DisplayGpuDriverBug();
+        viewModel.DisplayGpuDriverBugAsync();
         Task.Run(LofterHandler);
     }
 
@@ -95,7 +95,7 @@ public sealed partial class MainWindow : Window
             totals = uris.Length;
             foreach (var uri in uris)
             {
-                channel.Writer.WriteAsync(uri);
+                channel.Writer.TryWrite(uri);
             }
             txtSources.Text = string.Empty;
         }

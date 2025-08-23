@@ -49,7 +49,7 @@ partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task DisplayGpuDriverBug()
+    public async Task DisplayGpuDriverBugAsync()
     {
         try
         {

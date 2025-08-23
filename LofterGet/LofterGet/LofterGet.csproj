@@ -23,6 +23,14 @@
         <FileVersion>1.2.2506.2</FileVersion>
         <Version>1.2.2506.2</Version>
     </PropertyGroup>
+    <ItemGroup>
+      <Content Include="Picture2.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\gpu_driver_bug_list.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="*" />
@@ -32,14 +40,5 @@
         <PackageReference Include="Microsoft.WindowsAppSDK" Version="*" />
         <PackageReference Include="System.Threading.Channels" Version="*" />
         <Manifest Include="$(ApplicationManifest)" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="Picture2.ico">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="Resources\gpu_driver_bug_list.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 </Project>
