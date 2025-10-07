@@ -48,6 +48,18 @@ partial class MainWindowViewModel : ObservableObject
         }
     }
 
+    public void UpdateGpuBugs()
+    {
+        if (SelectedOsPlatform == "N/A")
+        {
+            GpuBugs = AllBugs;
+        }
+        else
+        {
+            GpuBugs = [.. AllBugs.Where(x => x.os?.type == SelectedOsPlatform)];
+        }
+    }
+
     [RelayCommand]
     public async Task DisplayGpuDriverBugAsync()
     {
@@ -58,7 +70,7 @@ partial class MainWindowViewModel : ObservableObject
             {
                 using var fs = File.OpenRead($"{AppDomain.CurrentDomain.BaseDirectory}Resources/gpu_driver_bug_list.json");
                 json = JsonSerializer.Deserialize(fs, SrcGenContext.Default.GpuDriverBugList);
-                json.entries.Reverse();
+                json.entries = [.. json.entries.Reverse()];
             });
             AllBugs = json.entries;
             OsPlatforms = [.. AllBugs.Select(x => x.os?.type ?? "N/A").Distinct()];

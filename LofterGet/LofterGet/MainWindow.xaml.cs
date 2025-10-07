@@ -30,7 +30,12 @@ public sealed partial class MainWindow : Window
 
         InitData();
         viewModel.OneDriveUpdate();
-        viewModel.DisplayGpuDriverBugAsync();
+        DispatcherQueue.TryEnqueue(async () =>
+        {
+            await viewModel.DisplayGpuDriverBugAsync();
+            viewModel.SelectedOsPlatform = "win";
+            viewModel.UpdateGpuBugs();
+        });
         Task.Run(LofterHandler);
     }
 
@@ -51,7 +56,7 @@ public sealed partial class MainWindow : Window
     private void InitData()
     {
         txtReferer.Text = "https://queyangzheng82678.lofter.com/";
-        txtUserAgent.Text = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0";
+        txtUserAgent.Text = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0";
         txtOutputPath.Text = "D:/tmp/M1876";
         outFolder = txtOutputPath.Text;
         client.DefaultRequestHeaders.Add("User-Agent", txtUserAgent.Text);
@@ -81,7 +86,7 @@ public sealed partial class MainWindow : Window
                     txtConsole.Text += $"{resp.StatusCode}: {file_name}\r\n";
                     svConsole.ScrollTo(0, svConsole.ExtentHeight);
                 });
-                Thread.Sleep(500);
+                await Task.Delay(500);
             }
         }
     }
@@ -108,14 +113,6 @@ public sealed partial class MainWindow : Window
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (viewModel.SelectedOsPlatform == "N/A")
-        {
-            viewModel.GpuBugs = viewModel.AllBugs;
-        }
-        else
-        {
-            viewModel.GpuBugs = [.. viewModel.AllBugs
-                .Where(x => x.os?.type == viewModel.SelectedOsPlatform)];
-        }
+        viewModel.UpdateGpuBugs();
     }
 }
