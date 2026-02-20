@@ -48,7 +48,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>3E9E59DA09BF7A34DB0AD3303CAC3A4C46A10827</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>C4D2478E6EE68A79931DBBB0FF7A581F83079D8F</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <AppxBundle>Always</AppxBundle>
