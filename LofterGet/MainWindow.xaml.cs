@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
+using LofterGet.Extensions;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -28,15 +29,43 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
 
-        InitData();
-        viewModel.OneDriveUpdate();
-        DispatcherQueue.TryEnqueue(async () =>
+        try
         {
-            await viewModel.DisplayGpuDriverBugAsync();
-            viewModel.SelectedOsPlatform = "win";
-            viewModel.UpdateGpuBugs();
-        });
-        Task.Run(LofterHandler);
+            this.Centre();
+        }
+        catch (Exception e)
+        {
+            ibError.Content = e.StackTrace;
+            ibError.IsOpen = true;
+        }
+
+        try
+        {
+            InitData();
+            Task.Run(async () =>
+            {
+                await Task.Delay(1000);
+                DispatcherQueue.TryEnqueue(async () =>
+                {
+                    try
+                    {
+                        viewModel.OneDriveUpdate();
+                        await viewModel.DisplayGpuDriverBugAsync();
+                        viewModel.SelectedOsPlatform = "win";
+                        viewModel.UpdateGpuBugs();
+                    }
+                    catch (Exception e)
+                    {
+                        File.WriteAllText("D:/crash2.txt", e.StackTrace);
+                    }
+                });
+            });
+            Task.Run(LofterHandler);
+        }
+        catch (Exception e)
+        {
+            File.WriteAllText("D:/crash.txt", e.StackTrace);
+        }
     }
 
     [RelayCommand]

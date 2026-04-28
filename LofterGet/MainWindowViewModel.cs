@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LofterGet.Model;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Xml;
 using Windows.Networking.Connectivity;
@@ -15,7 +17,7 @@ partial class MainWindowViewModel : ObservableObject
     public GpuDriverBugEntry[] AllBugs { get; set; }
 
     [ObservableProperty]
-    public partial string[] OsPlatforms { get; set; }
+    public partial ObservableCollection<string> OsPlatforms { get; set; }
 
     [ObservableProperty]
     public partial string OneUpdate { get; set; }
@@ -70,16 +72,17 @@ partial class MainWindowViewModel : ObservableObject
             {
                 using var fs = File.OpenRead($"{AppDomain.CurrentDomain.BaseDirectory}Resources/gpu_driver_bug_list.json");
                 json = JsonSerializer.Deserialize(fs, SrcGenContext.Default.GpuDriverBugList);
-                json.entries = [.. json.entries.Reverse()];
+                json?.entries = [.. json.entries.Reverse()];
             });
             AllBugs = json.entries;
-            OsPlatforms = [.. AllBugs.Select(x => x.os?.type ?? "N/A").Distinct()];
+            ObservableCollection<string> tmp = [.. AllBugs.Select(x => x.os?.type ?? "N/A").Distinct()];
+            OsPlatforms = tmp;
             SelectedOsPlatform = "N/A";
             GpuBugs = json.entries;
         }
         catch (Exception e)
         {
-
+            File.WriteAllText("D:/crash3.txt", $"{AppDomain.CurrentDomain.BaseDirectory}{Environment.NewLine}{e.StackTrace}");
         }
     }
 
@@ -90,10 +93,20 @@ partial class MainWindowViewModel : ObservableObject
         if (File.Exists(path))
         {
             using var xr = XmlReader.Create(path);
-            xr.ReadToFollowing("amd64binary");
-            OneUpdate = $"{xr["url"]}{Environment.NewLine}";
-            xr.ReadToFollowing("arm64binary");
-            OneUpdate += xr["url"];
+            var ret = true;
+            while (ret == true)
+            {
+                ret = xr.ReadToFollowing("amd64binary");
+                if (ret)
+                {
+                    OneUpdate = $"{xr["url"]}{Environment.NewLine}";
+                    ret = xr.ReadToFollowing("arm64binary");
+                    if (ret)
+                    {
+                        OneUpdate += xr["url"];
+                    }
+                }
+            }
         }
     }
 

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LofterGet (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LofterGet (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

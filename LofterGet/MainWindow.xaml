@@ -15,6 +15,7 @@
     <Grid x:Name="GMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -24,7 +25,10 @@
                        Margin="4,6" Text="LofterGet" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <TabView Grid.Row="1" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" Margin="0,8,0,0">
+        <InfoBar x:Name="ibError" Grid.Row="1" Severity="Error" Content="test"
+                 Margin="4"/>
+
+        <TabView Grid.Row="2" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" Margin="0,8,0,0">
             <TabViewItem Header="Lofter" IsClosable="False">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
@@ -98,7 +102,7 @@
                         <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"
                                 Style="{StaticResource AccentButtonStyle}"/>
                         <TextBox AcceptsReturn="True" Margin="0,8,0,0"
-                                 Text="{x:Bind viewModel.OneUpdate}"
+                                 Text="{x:Bind viewModel.OneUpdate, Mode=OneWay}"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
                     </StackPanel>
 
@@ -177,7 +181,7 @@
             </TabViewItem>
         </TabView>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right"
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right"
                     VerticalAlignment="Top">
             <Button Margin="8" Content="Light" Command="{x:Bind SetLightThemeCommand}"/>
             <Button Margin="0,8,8,8" Content="Dark" Command="{x:Bind SetDarkThemeCommand}"/>
