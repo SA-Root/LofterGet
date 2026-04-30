@@ -60,6 +60,7 @@
                                Text="Source URL:" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSources" Margin="4"
                              Height="200" FontFamily="Segoe UI Variable Display"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
                              AcceptsReturn="True" TabIndex="0" FontSize="20"/>
 
                     <TextBlock Grid.Row="3" FontFamily="Segoe UI Variable Display"
@@ -80,13 +81,10 @@
                     </StackPanel>
 
                     <Grid Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="{ThemeResource SystemAccentColor}"
-                          BorderThickness="4" Margin="8">
-                        <ScrollView x:Name="svConsole" VerticalScrollMode="Auto"
-                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                    VerticalScrollBarVisibility="Auto">
-                            <TextBlock x:Name="txtConsole" FontFamily="Segoe UI Variable Display"
-                                     FontSize="20" Margin="4"/>
-                        </ScrollView>
+                          BorderThickness="2" Margin="4">
+                        <TextBox x:Name="txtConsole" FontFamily="Segoe UI Variable Display"
+                                 FontSize="20" Margin="4" IsReadOnly="True" Height="Auto"
+                                 AcceptsReturn="True" VerticalAlignment="Stretch"/>
                     </Grid>
                 </Grid>
             </TabViewItem>
