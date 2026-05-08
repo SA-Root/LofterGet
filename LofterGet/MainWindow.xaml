@@ -95,6 +95,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                         <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"
@@ -134,6 +135,17 @@
                                  Margin="4,0"/>
                         <TextBlock Text="GB/s" Margin="4,0"
                                    VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,8">
+                        <Button Content="Chromium Version Detector"
+                                Command="{x:Bind viewModel.ChromeDetectCommand}"
+                                IsEnabled="{x:Bind viewModel.ChromiumDetectorEnabled, Mode=TwoWay}"
+                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                        <TextBlock Text="Chromium Version: " Margin="4,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind viewModel.ChromiumVersion, Mode=OneWay}"
+                                   Margin="4,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
             </TabViewItem>

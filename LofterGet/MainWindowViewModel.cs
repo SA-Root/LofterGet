@@ -1,16 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LofterGet.Model;
+using Microsoft.UI;
+using Microsoft.UI.Dispatching;
+using Microsoft.Windows.Storage.Pickers;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Xml;
 using Windows.Networking.Connectivity;
+
+#pragma warning disable CS4014
 
 namespace LofterGet;
 
 partial class MainWindowViewModel : ObservableObject
 {
+    public DispatcherQueue DQueue { get; set; }
+    public WindowId WindowId { get; set; }
+
     [ObservableProperty]
     public partial GpuDriverBugEntry[] GpuBugs { get; set; }
 
@@ -128,5 +135,50 @@ partial class MainWindowViewModel : ObservableObject
     {
         RefreshWwanDataClass();
         CalcBandwidth();
+    }
+
+    [ObservableProperty]
+    public partial string ChromiumVersion { get; set; }
+
+    [ObservableProperty]
+    public partial bool ChromiumDetectorEnabled { get; set; } = true;
+
+    [RelayCommand]
+    private void ChromeDetect()
+    {
+        Task.Run(() =>
+        {
+            DQueue.TryEnqueue(async () =>
+            {
+                var openPicker = new FileOpenPicker(WindowId)
+                {
+                    FileTypeFilter = { ".exe", ".dll" },
+                };
+
+                var result = await openPicker.PickSingleFileAsync();
+                if (result is not null)
+                {
+                    ChromiumDetectorEnabled = false;
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            var ver = ChromiumVersionDetector.DetectVersion(result.Path);
+                            DQueue.TryEnqueue(() =>
+                            {
+                                ChromiumVersion = ver;
+                            });
+                        }
+                        finally
+                        {
+                            DQueue.TryEnqueue(() =>
+                            {
+                                ChromiumDetectorEnabled = true;
+                            });
+                        }
+                    });
+                }
+            });
+        });
     }
 }

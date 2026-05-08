@@ -28,6 +28,8 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
+        viewModel.DQueue = DispatcherQueue;
+        viewModel.WindowId = AppWindow.Id;
 
         try
         {
