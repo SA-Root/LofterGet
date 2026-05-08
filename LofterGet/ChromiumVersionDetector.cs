@@ -1,8 +1,9 @@
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LofterGet;
 
-internal class ChromiumVersionDetector
+internal partial class ChromiumVersionDetector
 {
     public static string DetectVersion(string filePath)
     {
@@ -34,8 +35,11 @@ internal class ChromiumVersionDetector
                 if (IsMatch(buffer, i, pattern))
                 {
                     long matchOffset = fileOffset + (i - searchStart);
-                    var ver = Encoding.ASCII.GetString(buffer.AsSpan(i + patternLength, 14));
-                    return ver;
+                    var ver = Encoding.ASCII.GetString(buffer.AsSpan(i + patternLength, 14)).Trim();
+                    if (RegexChromiumVersion().IsMatch(ver))
+                    {
+                        return ver;
+                    }
                 }
             }
 
@@ -57,4 +61,7 @@ internal class ChromiumVersionDetector
         }
         return true;
     }
+
+    [GeneratedRegex(@"\d{1,3}\.\d\.\d{1,4}\.\d{1,3}")]
+    private static partial Regex RegexChromiumVersion();
 }
