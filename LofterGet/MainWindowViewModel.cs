@@ -144,41 +144,35 @@ partial class MainWindowViewModel : ObservableObject
     public partial bool ChromiumDetectorEnabled { get; set; } = true;
 
     [RelayCommand]
-    private void ChromeDetect()
+    private async Task ChromeDetect()
     {
-        Task.Run(() =>
+        var openPicker = new FileOpenPicker(WindowId)
         {
-            DQueue.TryEnqueue(async () =>
-            {
-                var openPicker = new FileOpenPicker(WindowId)
-                {
-                    FileTypeFilter = { ".exe", ".dll" },
-                };
+            FileTypeFilter = { ".exe", ".dll" },
+        };
 
-                var result = await openPicker.PickSingleFileAsync();
-                if (result is not null)
+        var result = await openPicker.PickSingleFileAsync();
+        if (result is not null)
+        {
+            ChromiumDetectorEnabled = false;
+            Task.Run(() =>
+            {
+                try
                 {
-                    ChromiumDetectorEnabled = false;
-                    Task.Run(() =>
+                    var ver = ChromiumVersionDetector.DetectVersion(result.Path);
+                    DQueue.TryEnqueue(() =>
                     {
-                        try
-                        {
-                            var ver = ChromiumVersionDetector.DetectVersion(result.Path);
-                            DQueue.TryEnqueue(() =>
-                            {
-                                ChromiumVersion = ver;
-                            });
-                        }
-                        finally
-                        {
-                            DQueue.TryEnqueue(() =>
-                            {
-                                ChromiumDetectorEnabled = true;
-                            });
-                        }
+                        ChromiumVersion = ver;
+                    });
+                }
+                finally
+                {
+                    DQueue.TryEnqueue(() =>
+                    {
+                        ChromiumDetectorEnabled = true;
                     });
                 }
             });
-        });
+        }
     }
 }

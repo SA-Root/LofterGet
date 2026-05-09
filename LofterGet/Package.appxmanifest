@@ -11,7 +11,7 @@
   <Identity
     Name="Aranyaka.LofterGet"
     Publisher="CN=a1240"
-    Version="1.1.18.0" />
+    Version="1.2.19.0" />
 
   <mp:PhoneIdentity PhoneProductId="7050bcee-5655-40b4-bb26-98112ee18bf0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

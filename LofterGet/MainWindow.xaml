@@ -76,7 +76,7 @@
                         <ProgressBar Value="50" x:Name="pBar" Width="300" Margin="8"/>
                         <Button x:Name="myButton"  Margin="4" FontSize="20"
                                 FontFamily="Segoe UI Variable Display" Click="myButton_Click"
-                                Style="{StaticResource AccentButtonStyle}"
+                                Style="{ThemeResource AccentButtonStyle}"
                                 Content="Download"/>
                     </StackPanel>
 
@@ -99,7 +99,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                         <Button Content="OneDrive" Command="{x:Bind viewModel.OneDriveUpdateCommand}"
-                                Style="{StaticResource AccentButtonStyle}"/>
+                                Style="{ThemeResource AccentButtonStyle}"/>
                         <TextBox AcceptsReturn="True" Margin="0,8,0,0"
                                  Text="{x:Bind viewModel.OneUpdate, Mode=OneWay}"
                                  FontFamily="Segoe UI Variable Display" FontSize="20"/>
@@ -111,7 +111,7 @@
                         <TextBox IsReadOnly="True" Text="{x:Bind viewModel.WwanDataClass, Mode=OneWay}"
                                  Margin="4,0"/>
                         <Button Content="Update" Command="{x:Bind viewModel.RefreshWwanDataClassCommand}"
-                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                                Margin="4,0" Style="{ThemeResource AccentButtonStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8">
@@ -130,7 +130,7 @@
                         <TextBlock Text="bit/Channel" Margin="4,0"
                                    VerticalAlignment="Center"/>
                         <Button Content="Calculate" Command="{x:Bind viewModel.CalcBandwidthCommand}"
-                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                                Margin="4,0" Style="{ThemeResource AccentButtonStyle}"/>
                         <TextBox Text="{x:Bind viewModel.CalculatedBandwidth, Mode=TwoWay}"
                                  Margin="4,0"/>
                         <TextBlock Text="GB/s" Margin="4,0"
@@ -140,8 +140,8 @@
                     <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,8">
                         <Button Content="Chromium Version Detector"
                                 Command="{x:Bind viewModel.ChromeDetectCommand}"
-                                IsEnabled="{x:Bind viewModel.ChromiumDetectorEnabled, Mode=TwoWay}"
-                                Margin="4,0" Style="{StaticResource AccentButtonStyle}"/>
+                                IsEnabled="{x:Bind viewModel.ChromiumDetectorEnabled, Mode=OneWay}"
+                                Margin="4,0" Style="{ThemeResource AccentButtonStyle}"/>
                         <TextBlock Text="Chromium Version: " Margin="4,0"
                                    VerticalAlignment="Center"/>
                         <TextBlock Text="{x:Bind viewModel.ChromiumVersion, Mode=OneWay}"
@@ -159,7 +159,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Load" Command="{x:Bind viewModel.DisplayGpuDriverBugCommand}"
-                                Style="{StaticResource AccentButtonStyle}"/>
+                                Style="{ThemeResource AccentButtonStyle}"/>
                         <ComboBox Margin="4" ItemsSource="{x:Bind viewModel.OsPlatforms, Mode=OneWay}"
                                   SelectedItem="{x:Bind viewModel.SelectedOsPlatform, Mode=TwoWay}"
                                   MinWidth="120" SelectionChanged="ComboBox_SelectionChanged"/>

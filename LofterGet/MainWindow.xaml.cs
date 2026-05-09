@@ -58,7 +58,7 @@ public sealed partial class MainWindow : Window
                     }
                     catch (Exception e)
                     {
-                        File.WriteAllText("D:/crash2.txt", e.StackTrace);
+                        //File.WriteAllText("D:/crash2.txt", e.StackTrace);
                     }
                 });
             });
@@ -66,7 +66,7 @@ public sealed partial class MainWindow : Window
         }
         catch (Exception e)
         {
-            File.WriteAllText("D:/crash.txt", e.StackTrace);
+            //File.WriteAllText("D:/crash.txt", e.StackTrace);
         }
     }
 
