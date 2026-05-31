@@ -13,8 +13,8 @@
         <EnableMsixTooling>true</EnableMsixTooling>
         <Nullable>enable</Nullable>
         <ImplicitUsings>true</ImplicitUsings>
-        <FileVersion>1.3.2602.0</FileVersion>
-        <Version>1.3.2602.0</Version>
+        <FileVersion>1.4.2606.0</FileVersion>
+        <Version>1.4.2606.0</Version>
         <PublishAot>True</PublishAot>
         <SelfContained>true</SelfContained>
         <PublishTrimmed>true</PublishTrimmed>

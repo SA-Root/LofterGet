@@ -19,16 +19,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
-            <Image Source="/Picture2.ico" Margin="8,4,0,4" Width="20"/>
+        <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
+            <Image Source="/Picture2.ico" Width="20"/>
             <TextBlock FontFamily="Segoe UI Variable Display" FontSize="14"
-                       Margin="4,6" Text="LofterGet" VerticalAlignment="Center"/>
+                       Margin="4,8" Text="LofterGet" VerticalAlignment="Top"/>
         </StackPanel>
 
         <InfoBar x:Name="ibError" Grid.Row="1" Severity="Error" Content="test"
-                 Margin="4"/>
+                 Margin="4" Visibility="Collapsed"/>
 
-        <TabView Grid.Row="2" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" Margin="0,8,0,0">
+        <TabView x:Name="tvMain" Grid.Row="2" IsAddTabButtonVisible="False"
+                 TabWidthMode="SizeToContent" Margin="0,4,0,0">
             <TabViewItem Header="Lofter" IsClosable="False">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
@@ -89,7 +90,7 @@
                 </Grid>
             </TabViewItem>
 
-            <TabViewItem Header="Utility"  IsClosable="False">
+            <TabViewItem Header="Utility" IsClosable="False">
                 <Grid Padding="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -187,6 +188,87 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                </Grid>
+            </TabViewItem>
+
+            <TabViewItem Header="USB4 Capabilities" IsClosable="False">
+                <Grid Padding="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="DisplayPort Capabilities:" VerticalAlignment="Center"/>
+                        <TextBox Margin="4,0,0,0" Width="150"
+                                 Text="{x:Bind viewModel.DpInLocalCapabilities, Mode=TwoWay}"/>
+                        <Button Content="Update" Command="{x:Bind viewModel.UpdateUsb4CapsCommand}"
+                                Style="{ThemeResource AccentButtonStyle}" Margin="4,0,0,0"/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" Margin="0,4,0,0">
+                        <Grid BorderThickness="2" CornerRadius="4" Padding="4"
+                              BorderBrush="{ThemeResource AccentFillColorDefaultBrush}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Protocol Adapter Version:" VerticalAlignment="Center"/>
+                                <TextBox Margin="4,0,0,0" Width="150" IsReadOnly="True"
+                                         Text="{x:Bind viewModel.Usb4DpInLocalCaps.Usb4Version, Mode=OneWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock Text="DPCD Version:" VerticalAlignment="Center"/>
+                                <TextBox Margin="4,0,0,0" Width="150" IsReadOnly="True"
+                                         Text="{x:Bind viewModel.Usb4DpInLocalCaps.DpcdVersion, Mode=OneWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock Text="Max Link Rate (8b/10b):" VerticalAlignment="Center"/>
+                                <TextBox Margin="4,0,0,0" Width="150" IsReadOnly="True"
+                                         Text="{x:Bind viewModel.Usb4DpInLocalCaps.MaxLinkRate8b10b, Mode=OneWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="3" Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock Text="Max Lane Count:" VerticalAlignment="Center"/>
+                                <TextBox Margin="4,0,0,0" Width="150" IsReadOnly="True"
+                                         Text="{x:Bind viewModel.Usb4DpInLocalCaps.MaxLaneCount, Mode=OneWay}"/>
+                            </StackPanel>
+
+                            <CheckBox Grid.Row="4" Margin="0,4,0,0" IsEnabled="False"
+                                      Content="MST Capability (8b/10b)"
+                                      IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.MstCap8b10b, Mode=OneWay}"/>
+
+                            <CheckBox Grid.Row="5" Margin="0,4,0,0" IsEnabled="False"
+                                      Content="128b/132b Link Layer &amp; 10 Gbps/Lane Support"
+                                      IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.LL128b132b, Mode=OneWay}"/>
+                            
+                            <CheckBox Grid.Row="6" Margin="0,4,0,0" IsEnabled="False"
+                                      Content="20 Gbps/Lane Support"
+                                      IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.Lane20Gbps, Mode=OneWay}"/>
+
+                            <CheckBox Grid.Row="7" Margin="0,4,0,0" IsEnabled="False"
+                                      Content="13.5 Gbps/Lane Support"
+                                      IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.Lane13_5Gbps, Mode=OneWay}"/>
+
+                            <CheckBox Grid.Row="8" Margin="0,4,0,0" IsEnabled="False"
+                                      Content="DSC Not Supported"
+                                      IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.DscNotSupported, Mode=OneWay}"/>
+
+                        </Grid>
+                    </ScrollViewer>
+
                 </Grid>
             </TabViewItem>
         </TabView>

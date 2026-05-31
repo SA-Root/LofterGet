@@ -30,6 +30,7 @@ public sealed partial class MainWindow : Window
         this.InitializeComponent();
         viewModel.DQueue = DispatcherQueue;
         viewModel.WindowId = AppWindow.Id;
+        ExtendsContentIntoTitleBar = true;
 
         try
         {
@@ -38,11 +39,13 @@ public sealed partial class MainWindow : Window
         catch (Exception e)
         {
             ibError.Content = e.StackTrace;
+            ibError.Visibility = Visibility.Visible;
             ibError.IsOpen = true;
         }
 
         try
         {
+            tvMain.SelectedIndex = 1;
             InitData();
             Task.Run(async () =>
             {
@@ -55,6 +58,7 @@ public sealed partial class MainWindow : Window
                         await viewModel.DisplayGpuDriverBugAsync();
                         viewModel.SelectedOsPlatform = "win";
                         viewModel.UpdateGpuBugs();
+                        viewModel.UpdateUsb4Caps();
                     }
                     catch (Exception e)
                     {

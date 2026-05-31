@@ -175,4 +175,19 @@ partial class MainWindowViewModel : ObservableObject
             });
         }
     }
+
+    [ObservableProperty]
+    public partial Usb4DpCapabilities Usb4DpInLocalCaps { get; set; }
+
+    [ObservableProperty]
+    public partial int DpInLocalCapabilities { get; set; } = 96969525;
+
+    [RelayCommand]
+    public void UpdateUsb4Caps()
+    {
+        Usb4DpInLocalCaps = new Usb4DpCapabilities
+        {
+            RawValue = DpInLocalCapabilities,
+        };
+    }
 }
