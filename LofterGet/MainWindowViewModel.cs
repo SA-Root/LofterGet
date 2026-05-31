@@ -180,7 +180,7 @@ partial class MainWindowViewModel : ObservableObject
     public partial Usb4DpCapabilities Usb4DpInLocalCaps { get; set; }
 
     [ObservableProperty]
-    public partial int DpInLocalCapabilities { get; set; } = 96969525;
+    public partial int DpInLocalCapabilities { get; set; } = 364946228;
 
     [RelayCommand]
     public void UpdateUsb4Caps()

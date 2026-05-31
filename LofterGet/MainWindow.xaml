@@ -195,6 +195,7 @@
                 <Grid Padding="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
@@ -206,7 +207,11 @@
                                 Style="{ThemeResource AccentButtonStyle}" Margin="4,0,0,0"/>
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="1" Margin="0,4,0,0">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,4,0,0">
+                        <TextBlock Text="Surface Thunderbolt 4 Dock: 96969525"/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" Margin="0,4,0,0">
                         <Grid BorderThickness="2" CornerRadius="4" Padding="4"
                               BorderBrush="{ThemeResource AccentFillColorDefaultBrush}">
                             <Grid.RowDefinitions>
@@ -251,19 +256,19 @@
                                       IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.MstCap8b10b, Mode=OneWay}"/>
 
                             <CheckBox Grid.Row="5" Margin="0,4,0,0" IsEnabled="False"
-                                      Content="128b/132b Link Layer &amp; 10 Gbps/Lane Support"
+                                      Content="128b/132b Link Layer &amp; 10 Gbps/Lane Support(UHBR10)"
                                       IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.LL128b132b, Mode=OneWay}"/>
                             
                             <CheckBox Grid.Row="6" Margin="0,4,0,0" IsEnabled="False"
-                                      Content="20 Gbps/Lane Support"
+                                      Content="20 Gbps/Lane Support(UHBR20)"
                                       IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.Lane20Gbps, Mode=OneWay}"/>
 
                             <CheckBox Grid.Row="7" Margin="0,4,0,0" IsEnabled="False"
-                                      Content="13.5 Gbps/Lane Support"
+                                      Content="13.5 Gbps/Lane Support(UHBR13.5)"
                                       IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.Lane13_5Gbps, Mode=OneWay}"/>
 
                             <CheckBox Grid.Row="8" Margin="0,4,0,0" IsEnabled="False"
-                                      Content="DSC Not Supported"
+                                      Content="DSC Support"
                                       IsChecked="{x:Bind viewModel.Usb4DpInLocalCaps.DscNotSupported, Mode=OneWay}"/>
 
                         </Grid>

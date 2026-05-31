@@ -68,22 +68,22 @@ internal class Usb4DpCapabilities
     public bool MstCap8b10b => ((RawValue >> 15) & 0b1) == 1;
     
     /// <summary>
-    /// 128b/132b Link Layer & 10 Gbps/Lane Support
+    /// 128b/132b Link Layer & 10 Gbps/Lane Support(UHBR10)
     /// </summary>
     public bool LL128b132b => ((RawValue >> 17) & 0b1) == 1;
 
     /// <summary>
-    /// 20 Gbps/Lane Support
+    /// 20 Gbps/Lane Support(UHBR20)
     /// </summary>
     public bool Lane20Gbps => ((RawValue >> 18) & 0b1) == 1;
 
     /// <summary>
-    /// 13.5 Gbps/Lane Support
+    /// 13.5 Gbps/Lane Support(UHBR13_5)
     /// </summary>
     public bool Lane13_5Gbps => ((RawValue >> 19) & 0b1) == 1;
 
     /// <summary>
-    /// DSC Not Supported
+    /// DSC Supported
     /// </summary>
-    public bool DscNotSupported => ((RawValue >> 29) & 0b1) == 1;
+    public bool DscNotSupported => ((RawValue >> 29) & 0b1) == 0;
 }
