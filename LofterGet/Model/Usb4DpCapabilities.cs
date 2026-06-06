@@ -35,7 +35,7 @@ internal enum Usb4DpMaxLinkRate8b10b
     [Description("8.1 Gbps/lane")]
     R8_1Gbps = 3,
 }
-    
+
 internal enum Usb4DpMaxLaneCount
 {
     [Description("1 lane")]
@@ -66,7 +66,12 @@ internal class Usb4DpCapabilities
     /// 8b/10b MST Capability
     /// </summary>
     public bool MstCap8b10b => ((RawValue >> 15) & 0b1) == 1;
-    
+
+    /// <summary>
+    /// Panel Replay Tunneling Optimization Support
+    /// </summary>
+    public bool PanelReplayTunnelingOptSupport => ((RawValue >> 16) & 0b1) == 1;
+
     /// <summary>
     /// 128b/132b Link Layer & 10 Gbps/Lane Support(UHBR10)
     /// </summary>
@@ -83,7 +88,42 @@ internal class Usb4DpCapabilities
     public bool Lane13_5Gbps => ((RawValue >> 19) & 0b1) == 1;
 
     /// <summary>
+    /// ALPM Supported
+    /// </summary>
+    public bool AlpmSupport => ((RawValue >> 20) & 0b1) == 1;
+
+    /// <summary>
+    /// 8b/10b TPS3 Capability
+    /// </summary>
+    public bool Tps3Cap8b10b => ((RawValue >> 22) & 0b1) == 1;
+
+    /// <summary>
+    /// 8b/10b TPS4 Capability
+    /// </summary>
+    public bool Tps4Cap8b10b => ((RawValue >> 24) & 0b1) == 1;
+
+    /// <summary>
+    /// 8b/10b FEC Not Supported
+    /// </summary>
+    public bool FecSupport8b10b => ((RawValue >> 25) & 0b1) == 0;
+
+    /// <summary>
+    /// Secondary Split Capability
+    /// </summary>
+    public bool SecondarySplitCapability => ((RawValue >> 26) & 0b1) == 1;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool LttprSupport => ((RawValue >> 27) & 0b1) == 0;
+
+    /// <summary>
+    /// DP IN BW Allocation Mode Support
+    /// </summary>
+    public bool DpInBwAllocationModeSupport => ((RawValue >> 28) & 0b1) == 1;
+
+    /// <summary>
     /// DSC Supported
     /// </summary>
-    public bool DscNotSupported => ((RawValue >> 29) & 0b1) == 0;
+    public bool DscSupported => ((RawValue >> 29) & 0b1) == 0;
 }

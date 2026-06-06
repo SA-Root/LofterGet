@@ -4,6 +4,7 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using Windows.System;
 
@@ -31,9 +32,11 @@ public sealed partial class MainWindow : Window
         viewModel.DQueue = DispatcherQueue;
         viewModel.WindowId = AppWindow.Id;
         ExtendsContentIntoTitleBar = true;
+        txtTitle.Text += $" {typeof(MainWindow).Assembly.GetName().Version} - {RuntimeInformation.FrameworkDescription} {RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()}";
 
         try
         {
+            this.Resize(1200, 800);
             this.Centre();
         }
         catch (Exception e)
