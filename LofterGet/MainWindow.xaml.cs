@@ -1,10 +1,10 @@
+using Aranyaka.Toolbox.Environment;
 using CommunityToolkit.Mvvm.Input;
 using LofterGet.Extensions;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using Windows.System;
 
@@ -34,7 +34,7 @@ public sealed partial class MainWindow : Window
         viewModel.WindowId = AppWindow.Id;
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(spTitle);
-        txtTitle.Text += $" {typeof(MainWindow).Assembly.GetName().Version} - {RuntimeInformation.FrameworkDescription} {RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()}";
+        txtTitle.Text += SystemInfo.WindowTitleInjections<MainWindow>();
 
         try
         {
@@ -50,8 +50,8 @@ public sealed partial class MainWindow : Window
 
         try
         {
-            tvMain.SelectedIndex = 1;
             InitData();
+            Task.Run(viewModel.UpdateSystemInfo);
             Task.Run(async () =>
             {
                 await Task.Delay(1000);

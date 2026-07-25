@@ -11,7 +11,7 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid x:Name="GMain">
+    <Grid x:Name="GMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -29,6 +29,12 @@
 
         <TabView x:Name="tvMain" Grid.Row="2" IsAddTabButtonVisible="False"
                  TabWidthMode="SizeToContent" Margin="0,4,0,0">
+            <TabViewItem Header="System Info" IsClosable="False"
+                         VerticalAlignment="Stretch">
+                <TextBox IsReadOnly="True" Margin="4" VerticalAlignment="Stretch"
+                         AcceptsReturn="True" Text="{x:Bind viewModel.SysInfo, Mode=OneWay}"/>
+            </TabViewItem>
+
             <TabViewItem Header="Lofter" IsClosable="False">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>

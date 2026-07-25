@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Aranyaka.Toolbox.Environment;
+using Aranyaka.Toolbox.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LofterGet.Model;
 using Microsoft.UI;
@@ -15,6 +17,27 @@ partial class MainWindowViewModel : ObservableObject
 {
     public DispatcherQueue DQueue { get; set; } = DispatcherQueue.GetForCurrentThread();
     public WindowId WindowId { get; set; } = new();
+
+    [ObservableProperty]
+    public partial string SysInfo { get; set; } = "Loading...Please Wait...";
+
+    public void UpdateSystemInfo()
+    {
+        var info = string.Empty;
+        try
+        {
+            info = SystemInfo.GetSystemInfo(WinVerLevel.LCUVer);
+        }
+        catch (Exception e)
+        {
+            info = $"ERROR: {e.CascadedMessages()}";
+        }
+
+        DQueue.TryEnqueue(() =>
+        {
+            SysInfo = info;
+        });
+    }
 
     [ObservableProperty]
     public partial GpuDriverBugEntry[] GpuBugs { get; set; } = [];
