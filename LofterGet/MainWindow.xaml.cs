@@ -23,7 +23,8 @@ public sealed partial class MainWindow : Window
         SingleReader = true,
         SingleWriter = true,
     });
-    string outFolder;
+
+    string outFolder = string.Empty;
     int totals = 0;
 
     public MainWindow()
@@ -32,6 +33,7 @@ public sealed partial class MainWindow : Window
         viewModel.DQueue = DispatcherQueue;
         viewModel.WindowId = AppWindow.Id;
         ExtendsContentIntoTitleBar = true;
+        SetTitleBar(spTitle);
         txtTitle.Text += $" {typeof(MainWindow).Assembly.GetName().Version} - {RuntimeInformation.FrameworkDescription} {RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()}";
 
         try
@@ -80,14 +82,14 @@ public sealed partial class MainWindow : Window
     [RelayCommand]
     public void SetDarkTheme()
     {
-        (Content as FrameworkElement).RequestedTheme = ElementTheme.Dark;
+        (Content as FrameworkElement)!.RequestedTheme = ElementTheme.Dark;
         AppWindow.TitleBar.ButtonForegroundColor = Colors.White;
     }
 
     [RelayCommand]
     public void SetLightTheme()
     {
-        (Content as FrameworkElement).RequestedTheme = ElementTheme.Light;
+        (Content as FrameworkElement)!.RequestedTheme = ElementTheme.Light;
         AppWindow.TitleBar.ButtonForegroundColor = Colors.Black;
     }
 

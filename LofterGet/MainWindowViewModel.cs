@@ -9,25 +9,23 @@ using System.Text.Json;
 using System.Xml;
 using Windows.Networking.Connectivity;
 
-#pragma warning disable CS4014
-
 namespace LofterGet;
 
 partial class MainWindowViewModel : ObservableObject
 {
-    public DispatcherQueue DQueue { get; set; }
-    public WindowId WindowId { get; set; }
+    public DispatcherQueue DQueue { get; set; } = DispatcherQueue.GetForCurrentThread();
+    public WindowId WindowId { get; set; } = new();
 
     [ObservableProperty]
-    public partial GpuDriverBugEntry[] GpuBugs { get; set; }
+    public partial GpuDriverBugEntry[] GpuBugs { get; set; } = [];
 
-    public GpuDriverBugEntry[] AllBugs { get; set; }
-
-    [ObservableProperty]
-    public partial ObservableCollection<string> OsPlatforms { get; set; }
+    public GpuDriverBugEntry[] AllBugs { get; set; } = [];
 
     [ObservableProperty]
-    public partial string OneUpdate { get; set; }
+    public partial ObservableCollection<string> OsPlatforms { get; set; } = [];
+
+    [ObservableProperty]
+    public partial string OneUpdate { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial string EffectiveTransferRate { get; set; } = "6400";
@@ -74,18 +72,18 @@ partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            GpuDriverBugList json = null;
+            GpuDriverBugList? json = null;
             await Task.Run(() =>
             {
                 using var fs = File.OpenRead($"{AppDomain.CurrentDomain.BaseDirectory}Resources/gpu_driver_bug_list.json");
                 json = JsonSerializer.Deserialize(fs, SrcGenContext.Default.GpuDriverBugList);
                 json?.entries = [.. json.entries.Reverse()];
             });
-            AllBugs = json.entries;
+            AllBugs = json?.entries ?? [];
             ObservableCollection<string> tmp = [.. AllBugs.Select(x => x.os?.type ?? "N/A").Distinct()];
             OsPlatforms = tmp;
             SelectedOsPlatform = "N/A";
-            GpuBugs = json.entries;
+            GpuBugs = json?.entries ?? [];
         }
         catch (Exception e)
         {
@@ -138,7 +136,7 @@ partial class MainWindowViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    public partial string ChromiumVersion { get; set; }
+    public partial string ChromiumVersion { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial bool ChromiumDetectorEnabled { get; set; } = true;
@@ -155,7 +153,7 @@ partial class MainWindowViewModel : ObservableObject
         if (result is not null)
         {
             ChromiumDetectorEnabled = false;
-            Task.Run(() =>
+            _ = Task.Run(() =>
             {
                 try
                 {
@@ -177,7 +175,7 @@ partial class MainWindowViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    public partial Usb4DpCapabilities Usb4DpInLocalCaps { get; set; }
+    public partial Usb4DpCapabilities Usb4DpInLocalCaps { get; set; } = new();
 
     [ObservableProperty]
     public partial int DpInLocalCapabilities { get; set; } = 364946228;
