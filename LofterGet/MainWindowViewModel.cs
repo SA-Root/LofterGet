@@ -7,9 +7,12 @@ using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.Windows.Storage.Pickers;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 using System.Xml;
 using Windows.Networking.Connectivity;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LofterGet;
 
@@ -210,5 +213,287 @@ partial class MainWindowViewModel : ObservableObject
         {
             RawValue = DpInLocalCapabilities,
         };
+    }
+
+    [ObservableProperty]
+    public partial ObservableCollection<string> VTFiles { get; set; } = [];
+
+    public StringBuilder SbVTConsole { get; } = new(4096);
+
+    [ObservableProperty]
+    public partial string FfmpegPath { get; set; } = @"D:\tmp\@VideoDown\ffmpeg.exe";
+
+    public string[] GpuDecodeVendor => ["Intel", "NVIDIA", "Media Foundation"];
+
+    public string[] GpuEncodeVendor => ["Intel", "NVIDIA", "Media Foundation", "D3D12"];
+
+    public string[] VideoDecodeFormat => ["AVC(H.264)", "HEVC(H.265)", "AV1", "VP9", "VC-1"];
+
+    public string[] VideoEncodeFormat => ["AVC(H.264)", "HEVC(H.265)", "AV1", "VP9"];
+
+    [ObservableProperty]
+    public partial int DecodeVendorIndex { get; set; } = 1;
+
+    [ObservableProperty]
+    public partial int DecodeFormatIndex { get; set; }
+
+    [ObservableProperty]
+    public partial int EncodeVendorIndex { get; set; } = 1;
+
+    [ObservableProperty]
+    public partial int EncodeFormatIndex { get; set; } = 2;
+
+    [ObservableProperty]
+    public partial bool UseHardwareDecode { get; set; } = true;
+
+    [ObservableProperty]
+    public partial bool UseHardwareEncode { get; set; } = true;
+
+    [ObservableProperty]
+    public partial int TargetBitrate { get; set; } = 8;
+
+    [ObservableProperty]
+    public partial int MaxBitrate { get; set; } = 16;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanStopTranscoding))]
+    public partial bool IsTranscoding { get; set; }
+
+    public bool CanStopTranscoding => !IsTranscoding;
+
+    private List<string> VideosToTranscode = [];
+
+    [RelayCommand]
+    public async Task SelectVideosToTranscodeAsync()
+    {
+        var picker = new FileOpenPicker(WindowId);
+        picker.FileTypeFilter.Add(".mkv");
+
+        var files = await picker.PickMultipleFilesAsync();
+        if (files.Count > 0)
+        {
+            VideosToTranscode.Clear();
+            VideosToTranscode.AddRange(files.Select(f => f.Path));
+            VTFiles = new(files.Select(f => Path.GetFileName(f.Path)));
+        }
+    }
+
+    [ObservableProperty]
+    public partial string VTOutputPath { get; set; } = @"F:\tmp";
+
+    [RelayCommand]
+    public void StartVideoTranscode()
+    {
+        FfmpegPath = FfmpegPath.Trim('\"');
+        IsTranscoding = true;
+
+        Task.Run(() =>
+        {
+            foreach (var video in VideosToTranscode)
+            {
+                ClearVTConsole();
+                var args = BuildFfmpegParams(video);
+                AppendVTConsoleLine($"\"{FfmpegPath}\" {args}");
+
+                VTProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = FfmpegPath,
+                        Arguments = args,
+                        UseShellExecute = false,
+                        //RedirectStandardOutput = true,
+                        //RedirectStandardError = true,
+                    }
+                };
+                //VTProcess.OutputDataReceived += VT_OutputDataReceived;
+                //VTProcess.ErrorDataReceived += VT_OutputDataReceived;
+
+                try
+                {
+                    VTProcess.Start();
+                    //VTProcess.BeginOutputReadLine();
+                    VTProcess.WaitForExit();
+                }
+                catch (Exception e)
+                {
+                    AppendVTConsoleLine(e.CascadedMessages());
+                    VTProcess.Kill();
+                    DisposeVTProcess();
+                    TranscodeStopped();
+                    return;
+                }
+
+                if (CtsVideoTranscode?.IsCancellationRequested == true)
+                {
+                    VTProcess.Kill();
+                    DisposeVTProcess();
+                    TranscodeStopped();
+                    return;
+                }
+
+                DisposeVTProcess();
+            }
+
+            TranscodeStopped();
+        });
+    }
+
+    private void TranscodeStopped()
+    {
+        DQueue.TryEnqueue(() =>
+        {
+            IsTranscoding = false;
+        });
+    }
+
+    private void DisposeVTProcess()
+    {
+        if (VTProcess is not null)
+        {
+            VTProcess.OutputDataReceived -= VT_OutputDataReceived;
+            VTProcess.ErrorDataReceived -= VT_OutputDataReceived;
+            VTProcess.Dispose();
+            VTProcess = null;
+        }
+    }
+
+    [RelayCommand]
+    public void StopTranscode()
+    {
+        CtsVideoTranscode?.Cancel();
+        VTProcess?.Kill();
+    }
+
+    private Process? VTProcess;
+
+    private void VT_OutputDataReceived(object sender, DataReceivedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(e.Data))
+            AppendVTConsole(e.Data);
+    }
+
+    private CancellationTokenSource? CtsVideoTranscode;
+
+    private void AppendVTConsole(string text)
+    {
+        SbVTConsole.Append(text);
+        DQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(SbVTConsole));
+        });
+    }
+
+    private void ClearVTConsole()
+    {
+        SbVTConsole.Clear();
+        DQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(SbVTConsole));
+        });
+    }
+
+    private void AppendVTConsoleLine(string text)
+    {
+        SbVTConsole.AppendLine(text);
+        DQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(SbVTConsole));
+        });
+    }
+
+    private string BuildFfmpegParams(string inputPath)
+    {
+        var sb = new StringBuilder(512);
+
+        if (UseHardwareDecode)
+        {
+            sb.Append("-c:v ");
+            switch (DecodeFormatIndex)
+            {
+                case 0:
+                    sb.Append("h264");
+                    break;
+                case 1:
+                    sb.Append("h265");
+                    break;
+                case 2:
+                    sb.Append("av1");
+                    break;
+                case 3:
+                    sb.Append("vp9");
+                    break;
+                case 4:
+                    sb.Append("vc1");
+                    break;
+                default:
+                    break;
+            }
+            sb.Append('_');
+            switch (DecodeVendorIndex)
+            {
+                case 0:
+                    sb.Append("qsv");
+                    break;
+                case 1:
+                    sb.Append("cuvid");
+                    break;
+                case 2:
+                    sb.Append("mf");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        sb.Append($" -i \"{inputPath}\"");
+
+        if (UseHardwareEncode)
+        {
+            sb.Append(" -c:v ");
+            switch (EncodeFormatIndex)
+            {
+                case 0:
+                    sb.Append("h264");
+                    break;
+                case 1:
+                    sb.Append("h265");
+                    break;
+                case 2:
+                    sb.Append("av1");
+                    break;
+                case 3:
+                    sb.Append("vp9");
+                    break;
+                default:
+                    break;
+            }
+            sb.Append('_');
+            switch (EncodeVendorIndex)
+            {
+                case 0:
+                    sb.Append("qsv");
+                    break;
+                case 1:
+                    sb.Append("nvenc");
+                    break;
+                case 2:
+                    sb.Append("mf");
+                    break;
+                case 3:
+                    sb.Append("d3d12va");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        sb.Append($" -b:v {TargetBitrate}M -maxrate {MaxBitrate}M");
+        sb.Append(" -bufsize 32M -rc-lookahead 24");
+        sb.Append(" -c:a copy -c:s copy");
+
+        sb.Append($" \"{VTOutputPath}\\{Path.GetFileName(inputPath)}\"");
+
+        return sb.ToString();
     }
 }
