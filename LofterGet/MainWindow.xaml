@@ -35,7 +35,7 @@
                          AcceptsReturn="True" Text="{x:Bind viewModel.SysInfo, Mode=OneWay}"/>
             </TabViewItem>
 
-            <TabViewItem Header="Lofter" IsClosable="False">
+            <TabViewItem Header="Lofter" IsClosable="False" Visibility="Collapsed">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

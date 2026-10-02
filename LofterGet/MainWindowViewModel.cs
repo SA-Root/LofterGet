@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Json;
 using System.Xml;
 using Windows.Networking.Connectivity;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LofterGet;
 
