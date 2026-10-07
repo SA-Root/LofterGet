@@ -36,9 +36,10 @@ internal partial class ChromiumVersionDetector
                 {
                     long matchOffset = fileOffset + (i - searchStart);
                     var ver = Encoding.ASCII.GetString(buffer.AsSpan(i + patternLength, 14)).Trim();
-                    if (RegexChromiumVersion().IsMatch(ver))
+                    var match = RegexChromiumVersion().Match(ver);
+                    if (match.Success)
                     {
-                        return ver;
+                        return match.Value;
                     }
                 }
             }
@@ -49,7 +50,7 @@ internal partial class ChromiumVersionDetector
             fileOffset += bytesRead;
         }
 
-        return string.Empty;
+        return "PATTERN NOT DETECTED";
     }
 
     private static bool IsMatch(byte[] buffer, int position, byte[] pattern)
@@ -62,6 +63,6 @@ internal partial class ChromiumVersionDetector
         return true;
     }
 
-    [GeneratedRegex(@"\d{1,3}\.\d\.\d{1,4}\.\d{1,3}")]
+    [GeneratedRegex(@"^\d{1,3}\.\d\.\d{1,4}\.\d{1,3}")]
     private static partial Regex RegexChromiumVersion();
 }
